@@ -82,7 +82,7 @@ kubectl create -f ./kube-prometheus/manifests/setup
 until kubectl get servicemonitors --all-namespaces ; do date; sleep 1; echo ""; done
 kubectl create -f ./kube-prometheus/manifests/
 
-kubectl create -f ./federation-manifest.yaml
+kubectl create -f ./../manifest/federation-manifest.yaml
 kubectl create clusterrolebinding root-cluster-admin-binding --clusterrole=cluster-admin --serviceaccount=monitoring:prometheus-k8s
 kubectl create clusterrolebinding root-cluster-admin-binding2 --clusterrole=cluster-admin --serviceaccount=monitoring:kube-state-metrics
 kubectl create clusterrolebinding root-cluster-admin-binding3 --clusterrole=cluster-admin --serviceaccount=monitoring:prometheus-adapter
@@ -93,6 +93,6 @@ echo 'Wait 5m for pods deployment'
 sleep 2m
 kubectl get pods --all-namespaces
 
-helm install -n monitoring prom-adapter -f values-adapter.yaml stable/prometheus-adapter
+helm install -n monitoring prom-adapter -f ./../manifest/values-adapter.yaml stable/prometheus-adapter
 echo -n 'End script'
 date
