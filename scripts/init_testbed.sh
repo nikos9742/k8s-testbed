@@ -18,7 +18,7 @@ else
     echo "Installing kubectl"
     curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
     chmod +x ./kubectl
-    sudo mv ./kubectl /usr/local/bin/kubectl
+    mv ./kubectl /usr/local/bin/kubectl
 fi
 
 #Linkerd
@@ -36,9 +36,10 @@ fi
 
 #DOCTL
 if ! command_exists doctl; then
-    sudo snap install doctl
-    sudo snap connect doctl:kube-config
-    sudo snap connect doctl:ssh-keys :ssh-keys
+    snap install doctl
+    mdkir $HOME/.config
+    snap connect doctl:kube-config
+    snap connect doctl:ssh-keys :ssh-keys
 else
     echo "Doctl exist"
 fi
