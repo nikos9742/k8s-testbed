@@ -37,7 +37,8 @@ fi
 #DOCTL
 if ! command_exists doctl; then
     snap install doctl
-    mdkir $HOME/.config
+    mkdir $HOME/.config
+    mkdir $HOME/.kube
     snap connect doctl:kube-config
     snap connect doctl:ssh-keys :ssh-keys
 else
