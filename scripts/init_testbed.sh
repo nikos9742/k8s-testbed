@@ -39,10 +39,14 @@ if ! command_exists doctl; then
     sudo snap install doctl
     sudo snap connect doctl:kube-config
     sudo snap connect doctl:ssh-keys :ssh-keys
+else
+    echo "Doctl exist"
 fi
 
 #HELM
 if ! command_exists helm; then
     curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+else
+    echo "Helm exist"
 fi
 
