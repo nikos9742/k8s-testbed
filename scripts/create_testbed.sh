@@ -21,7 +21,7 @@ then
 else 
     echo "kube-state-metrics doesn't exist"
     echo "Cloning :"
-    git clone git@github.com:kubernetes/kube-state-metrics.git
+    git clone https://github.com/kubernetes/kube-state-metrics.git
 fi
 
 kubectl create -f kube-state-metrics/examples/standard/
