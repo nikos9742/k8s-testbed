@@ -12,7 +12,7 @@ FILE=/usr/local/bin/kubectl
 if [ -f "$FILE" ]; then
     echo "$FILE exist"
     echo "kubectl already present"
-    kubectl version
+    command_exists kubectl
 else 
     echo "$FILE does not exist"
     echo "Installing kubectl"
