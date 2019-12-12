@@ -93,6 +93,8 @@ echo 'Wait 5m for pods deployment'
 sleep 2m
 kubectl get pods --all-namespaces
 
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo update
 helm install -n monitoring prom-adapter -f ./../manifest/values-adapter.yaml stable/prometheus-adapter
 echo -n 'End script'
 date
