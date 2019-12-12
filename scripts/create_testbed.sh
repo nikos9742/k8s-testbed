@@ -57,7 +57,7 @@ kubectl get -n default deploy -o yaml \
   | kubectl apply -f -
 
 kubectl get pods --all-namespaces
-echo 'Wait 5m for pods deployment'
+echo 'Wait 2m for pods deployment'
 sleep 2m
 
 kubectl get pods --all-namespaces
@@ -80,12 +80,12 @@ fi
 # Create the namespace and CRDs, and then wait for them to be availble before creating the remaining resources
 kubectl create -f ./kube-prometheus/manifests/setup
 until kubectl get servicemonitors --all-namespaces ; do date; sleep 1; echo ""; done
-kubectl create -f ./kube-prometheus/manifests/
+kubectl create -f ./kube-prometheus/manifests/ || true
 
-kubectl create -f ./../manifest/federation-manifest.yaml
-kubectl create clusterrolebinding root-cluster-admin-binding --clusterrole=cluster-admin --serviceaccount=monitoring:prometheus-k8s
-kubectl create clusterrolebinding root-cluster-admin-binding2 --clusterrole=cluster-admin --serviceaccount=monitoring:kube-state-metrics
-kubectl create clusterrolebinding root-cluster-admin-binding3 --clusterrole=cluster-admin --serviceaccount=monitoring:prometheus-adapter
+kubectl create -f ./../manifest/federation-manifest.yaml || true
+kubectl create clusterrolebinding root-cluster-admin-binding --clusterrole=cluster-admin --serviceaccount=monitoring:prometheus-k8s || true
+kubectl create clusterrolebinding root-cluster-admin-binding2 --clusterrole=cluster-admin --serviceaccount=monitoring:kube-state-metrics || true
+kubectl create clusterrolebinding root-cluster-admin-binding3 --clusterrole=cluster-admin --serviceaccount=monitoring:prometheus-adapter || true
 
 #I know it's not safe
 kubectl get pods --all-namespaces
