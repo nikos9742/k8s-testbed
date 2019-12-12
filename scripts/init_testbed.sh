@@ -49,7 +49,16 @@ fi
 #HELM
 if ! command_exists helm; then
     curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+    helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+    helm repo update
 else
     echo "Helm exist"
+    helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+    helm repo update
 fi
 
+echo " "
+echo " "
+echo " "
+echo "Enter command : "
+echo " export PATH=$PATH:$HOME/.linkerd2/bin "
