@@ -23,9 +23,10 @@ fi
 
 #Linkerd
 FILE2=$HOME/.linkerd2/bin/linkerd
-if [ -f "$FILE" ]; then
+if [ -f "$FILE2" ]; then
     echo "$FILE2 exist"
     echo "linkerd already present"
+    command_exists linkerd || echo "export linkerd to path"
     command_exists linkerd || export PATH=$PATH:$HOME/.linkerd2/bin
 else 
     echo "$FILE2 does not exist"
