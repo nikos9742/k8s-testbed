@@ -7,7 +7,7 @@ echo 'Start script'
 date
 
 # Create Kubernetes cluster on DigitalOcean Cloud 
-doctl kubernetes cluster create testbed-k8s-$(date +%s) --region ams3 --node-pool "size=s-4vcpu-8gb;auto-scale=true;min-nodes=2;max-nodes=10"
+doctl kubernetes cluster create testbed-k8s-$(date +%s) --region ams3 --node-pool "size=s-4vcpu-8gb;auto-scale=true;min-nodes=3;max-nodes=20"
 
 # Get and install kube-state-metrics on the cluster
 DIR=./kube-state-metrics
@@ -26,9 +26,12 @@ fi
 
 kubectl create -f kube-state-metrics/examples/standard/
 
+echo 'Wait 5m for pods deployment'
+sleep 2m
+
 # Check cluster prequisite for linkerd and install linkerd
-linkerd check --pre
-linkerd install | kubectl apply -f -
+linkerd check --pre 
+linkerd install --ha --controller-replica=2 | kubectl apply -f -
 
 # Get and install full microservice demo app
 DIR2=./microservices-demo

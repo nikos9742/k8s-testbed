@@ -55,7 +55,7 @@ rules:
   
   # sum(irate(request_total{namespace="$namespace", deployment="$deployment", direction="inbound"}[30s]))
 
-  - seriesQuery: 'request_total{namespace!="", deployment!="", direction="inbound"}'
+  - seriesQuery: 'request_total{namespace!="", deployment!=""}'
     resources:
       overrides:
         namespace: {resource: "namespace"}
@@ -63,7 +63,7 @@ rules:
     name:
       matches: "^(.*)_total"
       as: "${1}_per_second"
-    metricsQuery: 'sum(irate(<<.Series>>{<<.LabelMatchers>>}[30s])) by (<<.GroupBy>>)'
+    metricsQuery: 'sum(irate(<<.Series>>{<<.LabelMatchers>>, direction="inbound"}[30s])) by (<<.GroupBy>>)'
   existing:
   external: []
 # - seriesQuery: '{__name__=~"^some_metric_count$"}'

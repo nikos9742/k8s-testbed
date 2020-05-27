@@ -8,17 +8,17 @@ spec:
     apiVersion: apps/v1beta1
     kind: Deployment
     name: frontend
-  minReplicas: 3
+  minReplicas: 1
   maxReplicas: 30
   metrics:
   - type: Object
     object:
       metric:
-        name: request_per_second_inbound
+        name: request_per_second
       describedObject:
         apiVersion: apps/v1
         kind: Deployment
         name: frontend
       target:
         type: Value
-        value: 80
+        value: 30
